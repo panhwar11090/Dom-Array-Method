@@ -68,6 +68,22 @@ function sortByBalance(){
     updateDOM();
 }
 
+// function to sum all balance into total balnce
+function totalBalance(){
+    // Update the don with new user data
+    updateDOM();
+    // Add up all balance from all use
+    // Accumulator starts at 0 and adds the current users balance for each iteration
+    const balance = data.reduce((acc, user) =>(acc += user.balance),0);
+    // create a div for balance
+    const balanceElement = document.createElement('div');
+    // set the innerhtml
+    balanceElement.innerHTML = `<h3>Total Balance: ${formatNumberToDollar(balance)}</h3>`;
+    //Apend balance in main melemnt
+    main.appendChild(balanceElement);
+
+}
+
 
 // Function to format random number as money
 function formatNumberToDollar(number) {
@@ -107,3 +123,6 @@ filterBtn.addEventListener('click', filterUser);
 
 // 4. Listern for click on sort Button
 sortBtn.addEventListener('click', sortByBalance);
+
+//5. listen foir click on add all wealth
+addBtn.addEventListener('click', totalBalance);
