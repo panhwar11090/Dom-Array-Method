@@ -38,6 +38,41 @@ function addData(newUser){
     // update the dom to display tha data into the array
     updateDOM();
 }
+// Function to double the money of the user data array
+function doubleMoney(){
+    // loop through the user data array
+    // for each user return the user data 
+    // overwrite the data array with the new data array created by map
+    data = data.map(user =>{
+        return {...user, balance: user.balance * 2}
+    });
+    // update the dom usig the new user data array
+    updateDOM();
+}
+
+//Function to filter user only Millioner users
+function filterUser(){
+    // filter all user whose balnce is less tha million
+    data = data.filter(user => user.balance >= 1000000);
+    // Update the don with new user data
+    updateDOM();
+}
+
+// Funnction for sorting users by balance
+function sortByBalance(){
+    // sort user by balance using a compare function inside the sor
+    data = data.sort((a,b) =>
+        b.balance - a.balance
+    );
+    // Update the don with new user data
+    updateDOM();
+}
+
+
+// Function to format random number as money
+function formatNumberToDollar(number) {
+    return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
 
 
 
@@ -53,12 +88,22 @@ function updateDOM(userData = data) {
         userDiv.classList.add('user');
         // Add inner HTML to the user div
         userDiv.innerHTML = `<strong>${user.name}</strong> 
-                            ${user.balance}`
+                            ${formatNumberToDollar(user.balance)}`
         // Add the new element into the DOM
         main.appendChild(userDiv);
     });
 }
 
 
-getRandomUser();
-getRandomUser();
+// Event Listeners
+// 1. listen for click onAdd User
+addUserBtn.addEventListener('click', getRandomUser);
+
+// 2. listen for click on Double Money
+doubleBtn.addEventListener('click', doubleMoney );
+
+// 3. Listen for click on Fillter button
+filterBtn.addEventListener('click', filterUser);
+
+// 4. Listern for click on sort Button
+sortBtn.addEventListener('click', sortByBalance);
